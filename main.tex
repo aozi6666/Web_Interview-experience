@@ -1,0 +1,109 @@
+\documentclass[letterpaper]{article} % DO NOT CHANGE THIS
+\usepackage[submission]{aaai}  % DO NOT CHANGE THIS
+\usepackage{helvet}  % DO NOT CHANGE THIS
+\usepackage{courier}  % DO NOT CHANGE THIS
+\usepackage[hyphens]{url}  % DO NOT CHANGE THIS
+\usepackage{graphicx} % DO NOT CHANGE THIS
+\urlstyle{rm} % DO NOT CHANGE THIS
+\def\UrlFont{\rm}  % DO NOT CHANGE THIS
+\usepackage{natbib}  % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
+\usepackage{caption} % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
+\frenchspacing  % DO NOT CHANGE THIS
+\setlength{\pdfpagewidth}{8.5in} % DO NOT CHANGE THIS
+\setlength{\pdfpageheight}{11in} % DO NOT CHANGE THIS
+%
+% These are recommended to typeset algorithms but not required. See the subsubsection on algorithms. Remove them if you don't have algorithms in your paper.
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\usepackage{pifont} %182/183/184
+\usepackage{subcaption}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{amsfonts,amssymb} 
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{booktabs}
+%\usepackage{subfigure}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage[dvipsnames, table]{xcolor}
+\usepackage{soul}
+\usepackage{verbatim}
+\usepackage{multirow}
+\usepackage{xspace}
+\usepackage{amsfonts,amssymb} 
+\usepackage{microtype}
+%\usepackage{subfigure}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage[dvipsnames, table]{xcolor}
+\usepackage{soul}
+\usepackage{colortbl}
+\usepackage{booktabs,makecell, multirow, tabularx}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{amsmath}
+
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{bbding}
+\usepackage{pifont}
+\usepackage{wasysym}
+\usepackage{utfsym}
+\usepackage{fontawesome}
+
+\usepackage{mdframed}
+\begin{document}
+
+% %%%%%%%%%%%%%%%%%%%颜色定义
+\definecolor{color_gray}{RGB}{229,229,229}
+\definecolor{color_blue}{RGB}{252,182,165}
+\definecolor{color_pink}{RGB}{255,217,178}
+\definecolor{color_yellow}{RGB}{255,255,204}
+\definecolor{color_blue1}{RGB}{135, 206, 235}
+\cellcolor{color_blue} \cellcolor{color_pink} \cellcolor{color_yellow} \cellcolor{blue!8}
+% %%%%%%%%%%%%%%%%%%%
+
+\begin{table*}[ht!]
+
+% %%%%%%%%%%%%%%%%%%% 标题
+\caption{The red/blue indicates the best/second-best results.}
+
+\centering
+\setlength{\tabcolsep}{2.8mm} %2.2mm
+\renewcommand{\arraystretch}{1}
+\adjustbox{width=1\linewidth}{
+   \begin{tabular}{lccc}
+       \toprule
+            \multicolumn{4}{c}{On MipNeRF360 Dataset} \\
+            \toprule
+%%%%%%%%%%                 
+                Method&LPIPS* $\downarrow$ &PSNR $\uparrow$ & SSIM $\uparrow$  
+                \\
+%%%%%%%%%%                 
+\midrule[0.5pt]  
+FreeNeRF&17.76 &12.83 &0.8454  \\
+SparseNeRF&17.76 &12.83 &0.8454  \\
+3DGS&10.80 &20.31 &0.8991  \\
+FSGS&9.51 &21.07 &0.9097  \\
+CoR-GS&00.0 &00.0 &00.0  \\
+GaussianObject&8.47 &24.81 &0.9014  \\
+DropGaussian&00.0 &00.0 &00.0  \\
+DDGS&00.0 &00.0 &00.0  \\
+Ours&\cellcolor{color_blue}00.0 &\cellcolor{blue!8}00.0 &00.0  \\
+\toprule             
+%%%%%%%%%%%%%% 
+            
+       \end{tabular}
+   }
+
+\end{table*}
+
+\end{document}
