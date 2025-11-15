@@ -80,60 +80,87 @@
 \setlength{\tabcolsep}{2.8mm} %2.2mm
 \renewcommand{\arraystretch}{1}
 \adjustbox{width=1\linewidth}{
-\begin{tabular}{c c | ccc | ccc}
+\begin{tabular}{c c | ccc | ccc | ccc}
 \toprule
 % 头两列都用 multirow，占两行，这样 Methods 能上下居中
 \multirow{2}{*}{} 
   & \multirow{2}{*}{\centering Methods}
   & \multicolumn{3}{c|}{MipNeRF360 (4-view)} 
-  & \multicolumn{3}{c}{MipNeRF360 (6-view)} \\
+  & \multicolumn{3}{c|}{MipNeRF360 (6-view)} 
+  & \multicolumn{3}{c}{MipNeRF360 (9-view)} \\
 & 
   & LPIPS$\downarrow$ & PSNR$\uparrow$ & SSIM$\uparrow$ 
+  & LPIPS$\downarrow$ & PSNR$\uparrow$ & SSIM$\uparrow$
   & LPIPS$\downarrow$ & PSNR$\uparrow$ & SSIM$\uparrow$ \\
 \midrule
 %%%%%%%%%%                 
+%%%%%%%%%%                 
 %--------- 第一组：NeRF-based ----------
 \multirow{4}{*}{\rotatebox{90}{\scriptsize NeRF-based}}
-  & RegNeRF        & 19.88 & 12.59 & 0.847   
-  & 19.88 & 12.59 & 0.847  \\
-  
-  & SparseNeRF     & 17.76 & 12.83 & 0.845  
-  & 17.76 & 12.83 & 0.845  \\
-  
-  & FreeNeRF       & 16.83 & 13.71 & 0.853   
-  & 16.83 & 13.71 & 0.853  \\
-  
-  & ZeroRF         & 19.88 & 14.26 & 0.818   
-  & 19.88 & 14.26 & 0.818  \\
-  
-\midrule[0.5pt]  
-\multirow{8}{*}{\rotatebox{90}{3DGS-based}}
+  & RegNeRF        
+      & 19.88 & 12.59 & 0.841   
+      & 20.72 & 13.41 & 0.847  
+      & 19.70 & 13.68 & 0.852 \\  
 
-  &3DGS  &10.80 & 20.31 & 0.899   
-  & 10.80 & 20.31 & 0.899  \\
+  & SparseNeRF     
+      & 17.76 & 12.83 & 0.845  
+      & 19.74 & 13.42 & 0.901  
+      & 21.56 & 14.36 & 0.823 \\ 
+
+  & FreeNeRF       
+      & 16.83 & 13.71 & 0.853   
+      &  8.64 & 20.26 & 0.885  
+      &  6.51 & 22.78 & 0.916 \\  
+
+  & ZeroRF         
+      & 19.88 & 14.26 & 0.818   
+      &  8.31 & 21.68 & 0.909  
+      &  6.42 & 24.36 & 0.924 \\ 
+
+\midrule[0.5pt]  
+\multirow{8}{*}{\rotatebox{90}{\scriptsize 3DGS-based}}
+
+  & 3DGS  
+      &10.80 & 20.31 & 0.899   
+      &8.38 & 22.12 & 0.913 
+      &6.42 & 24.29 & 0.930 \\  % TODO
+
+  & CoR-GS 
+      &11.76 & 20.45 & 0.712 
+      &11.76 & 20.45 & 0.712 
+      &11.76 & 20.45 & 0.712 \\  % TODO
   
-  &CoR-GS & 11.76 & 20.45 & 0.712 & 11.76 & 20.45 & 0.712 \\
+  & FSGS 
+      & 9.51 & 21.07 & 0.909  
+      & 7.69 & 22.68 & 0.926
+      & 6.06 & 25.31 & 0.937 \\ 
   
-  & FSGS &  9.51 & 21.07 & 0.909  
-  & 9.51 & 21.07 & 0.909 \\
+  & DropGaussian 
+      &11.57 & 21.76 & 0.837
+      &11.57 & 21.76 & 0.837  
+      &11.57 & 21.76 & 0.837 \\  
   
-  & DropGaussian & 11.57 & 21.76 & 0.837
-  & 11.57 & 21.76 & 0.837  \\
+  & GaussianObject 
+      & 8.47 & 22.19 & 0.924   
+      & 4.96 & 23.52 & 0.931  
+      & 3.62 & 25.06 & 0.950 \\  
   
-  & GaussianObject &  8.47 & 22.19 & 0.934   
-  &8.47 & 22.19 & 0.934  \\
-  
-  & LoopSparseGS   &  5.22 & \cellcolor{blue!8}23.32 & 0.901 
-   &  5.22 & 23.32 & 0.901  \\
+  & LoopSparseGS   
+      & 5.22 & \cellcolor{blue!8}23.32 & 0.901 
+      & 5.22 & 23.32 & 0.901  
+      & 5.22 & 23.32 & 0.901 \\  
    
-  & D$^2$GS        & \cellcolor{color_blue}2.58 & 22.35 & \cellcolor{blue!8}0.923 
-        & 2.58 & 22.35 & 0.923 \\
+  & D$^2$GS        
+      & \cellcolor{color_blue}2.58 & 22.35 & \cellcolor{blue!8}0.923 
+      & 2.58 & 22.35 & 0.923 
+      & 2.58 & 22.35 & 0.923 \\  
         
-  & Ours  & \cellcolor{blue!8}3.69 & \cellcolor{color_blue}26.91 &\cellcolor{color_blue}0.951 
-& 3.69 & 26.91 & 0.951 \\
-\toprule             
-%%%%%%%%%%%%%% 
-            
+  & Ours  
+      & \cellcolor{blue!8}3.89 & \cellcolor{color_blue}26.91 &\cellcolor{color_blue}0.948 
+      & 3.43 &\cellcolor{color_blue} 27.93 &\cellcolor{color_blue} 0.953
+      & 3.02 &\cellcolor{color_blue} 29.21 &\cellcolor{color_blue} 0.961 \\  
+
+\toprule     
        \end{tabular}
    }
 
