@@ -20,7 +20,7 @@ var letterCombinations = function(digits) {
 
     const res = [];  // 结果 集
 
-    // 创建映射
+    // 创建映射：数字到字母的映射
     const phoneMap = {
         2: "abc",
         3: "def",
@@ -32,7 +32,7 @@ var letterCombinations = function(digits) {
         9: "wxyz"
     };
 
-    // 回溯函数: 拼接
+    // 回溯函数: 拼接，index 表示当前处理到 digits 的第 index 位
     function backtrack(index, currentCombination) {
         // 如果 当前索引 等于数字长度，添加到结果中 
         if(index === digits.length) {
