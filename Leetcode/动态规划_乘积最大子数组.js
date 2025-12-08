@@ -22,25 +22,28 @@
 // """
 
 var maxProduct = function(nums) {
-    // 空数组
-    if(nums.length == 0) return 0;
+   // 空数组
+   if(nums.length === 0) return 0;
 
-    let max_SoFar = nums[0];  // 记录最大乘积
-    let min_SoFar = nums[0];  // 记录最小乘积
-    let result = nums[0];  // 记录结果
+   // 初始化最大数组，最小数组，结果
+   let max_soFar = nums[0];
+   let min_soFar = nums[0];
+   let reslut = nums[0];
 
-    // 遍历数组
-    for(let i = 1; i < nums.length; i++) {
-        const current = nums[i];  // 当前元素
-        const temp_max = max_SoFar * current; // 临时最大值
-        const temp_min = min_SoFar * current; // 临时最小值
+   // 遍历数组： 依次乘积
+   for(let i = 1; i < nums.length; i++) {
+    // 每次记录 临时最大数/最小数 ， 用 当前 X i
+    let temp_max = nums[i] * max_soFar;
+    let temp_min = nums[i] * min_soFar;
 
-        max_SoFar = Math.max(current, temp_max, temp_min);
-        min_SoFar = Math.min(current, temp_max, temp_min);
+    // 更新 最大数/最小数
+    max_soFar = Math.max(nums[i], temp_max, temp_min);
+    min_soFar = Math.min(nums[i], temp_max, temp_min);
 
-        result = Math.max(result, max_SoFar);
-    }
-    return result;
+    // 更新结果
+    reslut = Math.max(reslut, max_soFar);
+   }
+   return reslut;
 }
 
 console.log(maxProduct([2,3,-2,4]));
