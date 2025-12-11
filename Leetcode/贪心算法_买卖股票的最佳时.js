@@ -20,3 +20,28 @@
 
 // """
 
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    // minPrice：到目前为止见过的最低买入价格
+    let minPrice = Infinity;
+    // maxProfit：到目前为止能获得的最大利润
+    let maxProfit = 0;
+
+    for (let price of prices) {
+        // 尝试更新历史最低价
+        if (price < minPrice) {
+            minPrice = price;
+        } else {
+            // 用当前价卖出，看看利润多少
+            const profit = price - minPrice;
+            if (profit > maxProfit) {
+                maxProfit = profit;
+            }
+        }
+    }
+
+    return maxProfit;
+};
