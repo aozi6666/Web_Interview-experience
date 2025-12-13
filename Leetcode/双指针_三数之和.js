@@ -40,7 +40,7 @@ var threeSum = function(nums) {
 
     // 2. 遍历数组(找三个数，需要n-2，留3个)
     for(let i = 0; i < n-2; i++){
-        // 2.1 跳过重复的 i
+        // 2.1 跳过重复的 i，用 continue 跳过
         if(i > 0 && nums[i] === nums[i-1]) {
             continue;   // 跳过重复的 i
         }
