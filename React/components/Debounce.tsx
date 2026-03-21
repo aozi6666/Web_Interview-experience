@@ -4,7 +4,7 @@
              用户快速输入：a → ab → abc，请求顺序可能会错乱
              abc 先返回，ab 后返回（覆盖掉最新结果）
 */
-import { useState } from 'react' 
+import { useState, useEffect } from 'react' 
 import axios from 'axios';
 
 export default function Debounce() {
@@ -39,17 +39,22 @@ export default function Debounce() {
             ]
         */
     // fetchData: 👉 发请求的回调函数(原生fetch)
-    const fetchData0 = (keyword: string) => {
-        return fetch(`/api/search?q=${keyword}`).then(res => res.json());
+    const fetchData0 = (value: string) => {
+        return fetch(`/api/search?q=${value}`, {
+            method: 'GET'
+        }).then(res => res.json())
+        .catch(err => {
+            console.error(err);
+        })
     }
     // fetchData: 👉 发请求的回调函数(Axios)
-    const fetchData = (keyword: string) => {
+    const fetchData = (value: string) => {
         return axios.get('/api/search', {
-            params: { q: keyword }
+            params: { q: value }
         }).then(res => res.data);
     }
 
-
+    // 1）常规
     useEffect(() => {
         const timer = setTimeout(() => {
             // fetchData: 👉 发请求的回调函数
