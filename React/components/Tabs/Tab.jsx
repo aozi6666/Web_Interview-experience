@@ -23,16 +23,30 @@ function App() {
           activeKey={activeKey}
           onChange={setActiveKey}
           items={items}
+          defaultActiveKey="1"
         />
       </div>
     );
   }
 // 受控组件： 接收 父组件 传来的 activeKey状态变量，onChange回调函数，items数组
-function Tabs({ items = [], activeKey: controlledKey, defaultActiveKey, onChange }) {
+function Tabs({ 
+    items = [],   // tab 数据列表，默认空数组
+    activeKey: controlledKey,  // 解构 + 重命名 
+    defaultActiveKey,  // 非受控组件 的初始值
+    onChange  // 父组件传下来的 回调函数（点击时，真正修改的东西让父组件来修改）
+}) {
   // 1. 判断是否受控（传了 activeKey，就是受控组件）
   const isControlled = controlledKey !== undefined;
 
     // 2. 非受控状态(非受控：组件内部自己维护 当前选中项)
+    // 传了 defaultActiveKey 就用，否则默认用第一个 tab 的 key
+    /* 
+       左 ?? 右:  只有左边是 null 或 undefined， 采用右边
+       左 || 右:  左边是“假”（false、0 、"" 、null 、undefined 、NaN ），用右边
+
+       items[0]?.key： 如果 items[0] 存在，就取它的 key
+                       如果 items[0] 不存在，返回 undefined
+    */
   const [innerKey, setInnerKey] = useState(
     defaultActiveKey ?? items[0]?.key
   );
@@ -52,11 +66,15 @@ function Tabs({ items = [], activeKey: controlledKey, defaultActiveKey, onChange
     onChange?.(newKey);
   };
 
-  // 展示：根据 activeKey 找当前内容。
-  const activeItem = items.find((item) => item.key === activeKey);
+  // 展示内容：根据 activeKey 找当前内容
+  // 找出那个 key 等于 activeKey 的对象，赋值给 activeItem
+  const activeItem = items.find((item) => {
+    return item.key === activeKey
+  });
 
   return (
     <div>
+        {/* 接收一组 items：显示一排 tab 按钮 */}
       {items.map(item => (
         <button key={item.key} onClick={() => handleClick(item.key)}>
           {item.label}
