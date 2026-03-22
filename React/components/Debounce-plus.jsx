@@ -39,41 +39,34 @@ export default function DebouncePlus() {
   };
 
   // keyword 变化 -> 防抖请求 + 中断旧请求，避免竞态
-  // 1）使用 AbortController
   useEffect(() => {
-    // 创建 AbortController 实例
-    const controller = new AbortController();
-
-    // 开启定时器
-    const timer = setTimeout(() => {
-      // 空值
-      if(!keyword.trim()) {
-        setList([]);
-        return ;
-      }
-
-      // 发请求前，最新Id
-      const id = ++latestId.current;
-
-      // 开启定时器（发请求）
-      fetchData(keyword, { signal: controller.signal })
-        .then((res) => {
-          if(id === latestId.current) {
-            setList(res);
-          }
-        }).catch((err) => {
-          // 忽略中断错误
-          if(err.name !== 'AbortError') {
-            console.error(err);
-          }
-        })
-    }, 3000)
-    
-    // 清理函数：
-    return () => {
-      clearTimeout(timer);  // 清理定时器
-      controller.abort();  // 中断旧请求
+    // 空值：立刻清空列表，不要等防抖；也不创建 Controller / 定时器
+    if (!keyword.trim()) {
+      setList([]);
+      return;
     }
 
-  }, [keyword])
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      // 最新Id
+      const id = ++latestId.current;
+      // 发请求
+      fetchData(keyword, { signal: controller.signal })
+        .then((res) => {
+          if (id === latestId.current) {
+            setList(res);
+          }
+        })
+        .catch((err) => {
+          if (err.name !== "AbortError") {
+            console.error(err);
+          }
+        });
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [keyword]);
 }
