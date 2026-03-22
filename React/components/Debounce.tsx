@@ -16,17 +16,15 @@ export default function Debounce() {
 
      // 只手写 debounce function函数
      function debounce(fn, delay) {
-        let timer = null;
+        let timer: ReturnType<typeof setTimeout> | null = null;
 
-        return function(...args) {
-            // 清空已有计时器
-            clearTimeout(timer);
-
-            // 开启新计时器
+        return function (...args) {
+            if (timer !== null) clearTimeout(timer);
+            // 必须赋值给闭包外层 timer；内层用 const timer 会遮蔽外层，clearTimeout 永远清不到上一次定时器
             timer = setTimeout(() => {
                 fn.apply(this, args);
-            },delay)
-        }
+            }, delay);
+        };
      }
 
       /* 

@@ -24,10 +24,10 @@ export default function DebouncePlus() {
     })
   };
   // 2.axios版本请求回调：
-  const fetchData2 = function (keyword, options = {}) {
+  const fetchData2 = function (value, options = {}) {
     return axios
       .get("/api/search", {
-      params: { query: keyword },
+      params: { query: value },
       signal: options.signal,
     })
       .then((res) => res.data)
