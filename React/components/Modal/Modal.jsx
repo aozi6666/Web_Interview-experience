@@ -1,6 +1,24 @@
 import React from "react";
 import { createPortal } from "react-dom";
-
+function App() {
+    const [open, setOpen] = useState(false);
+  
+    return (
+      <div>
+        <button onClick={() => setOpen(true)}>打开弹窗</button>
+  
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          destroyOnClose={true}
+        >
+          <h3>这是一个 Modal</h3>
+          <p>点击遮罩或按钮都可以关闭</p>
+        </Modal>
+      </div>
+    );
+  }
+  
 function Modal({ open, onClose, destroyOnClose = false, children }) {
   // 关闭且需要销毁：直接不渲染
   if (!open && destroyOnClose) return null;
