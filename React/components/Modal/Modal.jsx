@@ -82,7 +82,7 @@ export default function Modal({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        transition: "background 300ms ease", //平滑变化
+        transition: "background 1000ms ease", //平滑变化
         background: visible ? "rgba(0,0,0,0.45)" : "rgba(0,0,0,0)",
       }}
     >
