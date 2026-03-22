@@ -56,22 +56,13 @@ function Tabs({ items = [], activeKey: controlledKey, defaultActiveKey, onChange
   const activeItem = items.find((item) => item.key === activeKey);
 
   return (
-    <div className="tabs">
-      <div className="tabs-nav">
-        {items.map((item) => (
-          <button
-            key={item.key}
-            className={item.key === activeKey ? "active" : ""}
-            onClick={() => handleClick(item.key)}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="tabs-content">
-        {activeItem ? activeItem.content : null}
-      </div>
+    <div>
+      {items.map(item => (
+        <button key={item.key} onClick={() => handleClick(item.key)}>
+          {item.label}
+        </button>
+      ))}
+      <div>{activeItem?.content}</div>
     </div>
   );
 }
