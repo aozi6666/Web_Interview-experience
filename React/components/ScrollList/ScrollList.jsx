@@ -36,6 +36,7 @@ export default function ScrollList() {
     const [page, setPage] = useState(1);
     // 状态： 是不是有一个请求正在进行。防止 重复请求
     const [loading, setLoading] = useState(false);
+    const loadingRef = useRef(false);
     // 是否还需要继续加载下一页
     const [hasMore, setHasMore] = useState(true);
 
@@ -49,25 +50,33 @@ export default function ScrollList() {
     // 解决闭包 的关键：永远让 loadMoreRef.current 指向“最新版本的 loadMore 函数”
     const loadMoreRef = useRef(() => {});
 
+    // 首屏自动加载期间：避免 observer 立即触发重复请求第一页
+    const firstLoadInFlightRef = useRef(false);
+
     // 回调：“加载下一页”
-    const loadMore = async () => {
+    const loadMore = async function() {
         // 防止重复请求
         // 当前正在加载 或者 已经到最后一页了 => 直接返回
-        if (loading || !hasMore) return;
+        if (loadingRef.current || loading || !hasMore) return;
         
-        // 1）先上锁： 下一轮先别来
-        setLoading(true);
-        // 2）通过 fetchPage接口，获取当前页数据 
-        const data = await fetchPage(page);
+        try {
+             // 1）先上锁： 下一轮先别来
+            loadingRef.current = true;
+            setLoading(true);
+            // 2）通过 fetchPage接口，获取当前页数据 
+            const data = await fetchPage(page);
 
-        // 3）添加 新数据 到 旧数据后（拼接，非覆盖）
-        setList((prev) => [...prev, ...data.list]);
-        // 4）更新状态：是否还有 更多数据
-        setHasMore(data.hasMore);
-        // 5）页码加 1 （函数式更新）
-        setPage((prev) => prev + 1);
-        // 6）处理完了，解锁
-        setLoading(false);
+            // 3）添加 新数据 到 旧数据后（拼接，非覆盖）
+            setList((prev) => [...prev, ...data.list]);
+            // 4）更新状态：是否还有 更多数据
+            setHasMore(data.hasMore);
+            // 5）页码加 1 （函数式更新）
+            setPage((prev) => prev + 1);
+        } finally {
+             // 6）处理完了，解锁
+            setLoading(false);
+            loadingRef.current = false;
+        }
     };
 
     /*
@@ -79,7 +88,19 @@ export default function ScrollList() {
     // 替代 回调loadMore
     loadMoreRef.current = loadMore;
 
-    // 只在挂载的时候，执行一次：创建 observer
+    // 首屏自动触发第一次加载（最小改动）
+    useEffect(() => {
+        firstLoadInFlightRef.current = true;
+        (async () => {
+            try {
+                await loadMoreRef.current();
+            } finally {
+                firstLoadInFlightRef.current = false;
+            }
+        })();
+    }, []);
+
+    // 只在挂载的时候，执行一次：创建 observer，观察'底部哨兵'元素
     useEffect(() => {
         // 取 底部 “哨兵元素”
         const el = ref.current;
@@ -92,9 +113,10 @@ export default function ScrollList() {
             if (entry.isIntersecting) {
                 // 本质："最新的" 回调函数 loadMore()
                 // 避免 闭包拿旧状态 
+                if (firstLoadInFlightRef.current) return;
                 loadMoreRef.current();
             }
-        });
+        }, { root: null, rootMargin: "100px", threshold: 0 });
 
         // observer 实例对象方法：浏览器观察这个元素
         observer.observe(el);  
