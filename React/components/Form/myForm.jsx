@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 export default function Form({}){
     // 状态: 表单更新状态，错误信息状态(都是对象)
-    const [form, setForm] = useState({name: ''});
+    const [form, setForm] = useState({name: '', email: ''});
     const [errors, setErrors] = useState({});
 
     // 回调：表单变化，只做更新
@@ -58,6 +58,13 @@ export default function Form({}){
                     value={form.name}
                     onChange={(e) => handleChagne(e)}
                     placeholder='请输入姓名'
+                >
+                </input>
+                <input 
+                    name='email'
+                    value={form.email}
+                    onChange={(e) => handleChagne(e)}
+                    placeholder='请输入邮箱'
                 >
                 </input>
                 {errors.name && <p>{errors.name}</p>}
