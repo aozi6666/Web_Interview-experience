@@ -24,20 +24,20 @@ function App() {
           </button>
         </p>
       </section>
-
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        destroyOnClose
-      >
-        <h3 style={{ marginTop: 0 }}>Modal 标题</h3>
-        <p style={{ margin: 0, lineHeight: 1.6 }}>
-          这是 App.tsx 里的用法示例：受控 <code>open</code>、点遮罩或底部按钮会调用{' '}
-          <code>onClose</code>。内容区点击不会关闭（内部已 <code>stopPropagation</code>）。
-        </p>
-      </Modal>
-
-      <From />
+      <div className="content">
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          destroyOnClose
+        >
+          <h3 style={{ marginTop: 0 }}>Modal 标题</h3>
+          <p style={{ margin: 0, lineHeight: 1.6 }}>
+            这是 App.tsx 里的用法示例：受控 <code>open</code>、点遮罩或底部按钮会调用{' '}
+            <code>onClose</code>。内容区点击不会关闭（内部已 <code>stopPropagation</code>）。
+          </p>
+        </Modal>
+        <From />
+      </div>
     </>
   )
 }
