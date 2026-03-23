@@ -17,7 +17,8 @@ export default function ScrollList(){
     const Ref = useRef(null);
     // 滚动容器 的 Ref
     const containRef = useRef(null);
-    // 存储最新回调函数的 Ref(只存函数)
+    // 存储最新回调函
+    // 数的 Ref(只存函数)
     const loadMoreRef = useRef(() => {});
     // 首屏加载 Ref
     const firstLoadingInRef = useRef(true);
