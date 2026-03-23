@@ -4,7 +4,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import Modal from '../components/Modal/Modal.jsx'
-import From from '../components/Form/From.jsx'
+import Form from '../components/Form/Form.jsx'
+import ScrollList from '../components/ScrollList/ScrollList.jsx'
 import './App.css'
 
 function App() {
@@ -36,7 +37,11 @@ function App() {
             <code>onClose</code>。内容区点击不会关闭（内部已 <code>stopPropagation</code>）。
           </p>
         </Modal>
-        <From />
+        <Form />
+        <section style={{ marginTop: 24, maxWidth: 420, width: '100%' }}>
+          <h2 style={{ margin: '0 0 8px', fontSize: 18, color: 'var(--text-h)' }}>ScrollList</h2>
+          <ScrollList />
+        </section>
       </div>
     </>
   )
