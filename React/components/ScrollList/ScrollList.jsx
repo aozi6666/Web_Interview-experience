@@ -47,6 +47,9 @@ export default function ScrollList() {
     */
     const ref = useRef(null);
 
+    // “滚动容器ref”：让 IntersectionObserver 的 root 指向真正的滚动区域
+    const containerRef = useRef(null);
+
     // 解决闭包 的关键：永远让 loadMoreRef.current 指向“最新版本的 loadMore 函数”
     const loadMoreRef = useRef(() => {});
 
@@ -88,7 +91,7 @@ export default function ScrollList() {
     // 替代 回调loadMore
     loadMoreRef.current = loadMore;
 
-    // 首屏自动触发第一次加载（最小改动）
+    // 首屏自动触发第一次加载
     useEffect(() => {
         firstLoadInFlightRef.current = true;
         (async () => {
@@ -106,7 +109,10 @@ export default function ScrollList() {
         const el = ref.current;
         if (!el) return;
 
-        // 创建一个 
+        const rootEl = containerRef.current;
+        if (!rootEl) return;
+
+        // 创建一个 观察器对象
         // 盯着底部 “哨兵元素” ，一旦它进入可视区域，就 触发加载更多 回调
         // [entry]: observer 回调拿到的是数组，只取第一个观察项
         const observer = new IntersectionObserver(([entry]) => {
@@ -116,7 +122,7 @@ export default function ScrollList() {
                 if (firstLoadInFlightRef.current) return;
                 loadMoreRef.current();
             }
-        }, { root: null, rootMargin: "100px", threshold: 0 });
+        }, { root: rootEl, rootMargin: "100px", threshold: 0 });
 
         // observer 实例对象方法：浏览器观察这个元素
         observer.observe(el);  
@@ -127,6 +133,7 @@ export default function ScrollList() {
 
     return (
         <div
+        ref={containerRef}
         style={{
             maxHeight: 280,  // 固定高度
             overflow: "auto",  // 内部滚动
@@ -143,7 +150,10 @@ export default function ScrollList() {
             ))}
         </ul>
 
-        {/* 关键：“哨兵元素” （不展示，只受 浏览器 监控） */}
+        {/*
+             关键：“哨兵元素” （不展示，只受 浏览器 监控）
+                当这个 div 自己进入可视区域时触发
+         */}
         <div ref={ref} style={{ height: 1 }} />
 
         {/* 如果正在加载，显示“加载中…” */}
