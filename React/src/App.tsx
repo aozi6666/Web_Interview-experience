@@ -1,8 +1,10 @@
+// @ts-nocheck
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import Modal from '../components/Modal/Modal.jsx'
+import From from '../components/Form/From.jsx'
 import './App.css'
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
           <code>onClose</code>。内容区点击不会关闭（内部已 <code>stopPropagation</code>）。
         </p>
       </Modal>
+
+      <From />
     </>
   )
 }
