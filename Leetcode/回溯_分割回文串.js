@@ -46,11 +46,13 @@ var partition = function(s) {
         }
 
         // 循环-递归
+        // ！ 决定这 一刀切 到哪里为止 ， 切出区间[start, end]
         for(let end = start; end < s.length; end++){
             // 不是回文串，直接跳过
             if(!isPalindrome(s, start, end)) continue;
 
             // 回溯前-选择
+            // slice(a, b): 左闭右开 [a, b),从 a 开始，但是取不到b !!!
             track.push(s.slice(start, end + 1));
             end += 1;
 
