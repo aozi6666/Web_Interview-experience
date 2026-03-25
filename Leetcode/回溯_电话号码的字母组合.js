@@ -15,12 +15,16 @@
 
 // 建立映射 + 回溯
 var letterCombinations = function(digits) {
-    // 空数组
+    // 边界判断
     if(digits.length === 0) return [];
 
-    const res = [];  // 结果 集
-
-    // 创建映射：数字到字母的映射
+    // 只存 每个数字 选中的 单个字母
+    let track = [];
+    // 最终结果数组
+    let res = [];
+    // 正在处理第几个（index + 1）数字
+    let index = 0;
+    // 电话号码对应表
     const phoneMap = {
         2: "abc",
         3: "def",
@@ -30,31 +34,34 @@ var letterCombinations = function(digits) {
         7: "pqrs",
         8: "tuv",
         9: "wxyz"
-    };
+    }
 
-    // 回溯函数: 拼接，index 表示当前处理到 digits 的第 index 位
-    function backtrack(index, currentCombination) {
-        // 如果 当前索引 等于数字长度，添加到结果中 
-        if(index === digits.length) {
-            res.push(currentCombination);
+    function backtrack(digits, track, index){
+        if(track.length === digits.length){
+            // 讲track单个字母拼接放入 res 中
+            res.push(track.join(''));
+            // 此次 递归结束
             return;
-        };
+        }
 
-        // 当前数字（字符串转数字）
-        const cur_digit = parseInt(digits[index]); 
-        //  当前数字对应的字母 字符集
-        const letters = phoneMap[cur_digit]; 
+        // 取出某个数字对应的 字母列表
+        let letters = phoneMap[digits[index]];
 
-        // 遍历当前数字对应的每个字母
+        // 循环递归
         for(let i = 0; i < letters.length; i++){
-            // 回溯
-            backtrack(index + 1, currentCombination + letters[i]);
+            // 递归前-选择
+            track.push(letters[i]);
+            index += 1;
+            // 递归
+            backtrack(digits, track, index);
+            // 递归后-撤销选择
+            track.pop();
+            index -= 1;
         }
     }
-    backtrack(0, '');
 
+    backtrack(digits, track, index);
     return res;
-}
-
+};
 console.log(letterCombinations("23"));
 console.log(letterCombinations("2"));
