@@ -30,46 +30,52 @@
  * @return {boolean}
  */
 var exist = function(board, word) {
-    // 记录行列
-    const m = board.length;
-    const n = board[0].length;
+    let m = board.length;
+    let n = board[0].length;
 
-    // 回溯函数
     function backtrack(i, j, k) {
-        // 所有字符都匹配完了
-        if(k === word.length) return true;
-
-        // 越界 or 字符不相等
-        if(i < 0 || i >= m || j < 0 || j >= n || board[i][j] !== word[k]) {
+        // 1. 越界
+        if (i < 0 || i >= m || j < 0 || j >= n) {
             return false;
-        } 
+        }
 
-        // 临时标记（防止重复使用）
-        const temp = board[i][j];
+        // 2. 当前字符不匹配
+        if (board[i][j] !== word[k]) {
+            return false;
+        }
+
+        // 3. 已经匹配到最后一个字符
+        if (k === word.length - 1) {
+            return true;
+        }
+
+        // 4. 做选择：标记当前格子已使用
+        let temp = board[i][j];
         board[i][j] = '#';
 
-        // 四个方向继续匹配
-        const found = 
+        // 5. 试探四个方向
+        let found =
             backtrack(i + 1, j, k + 1) ||
             backtrack(i - 1, j, k + 1) ||
             backtrack(i, j + 1, k + 1) ||
             backtrack(i, j - 1, k + 1);
 
-        // 回溯： 恢复现场
+        // 6. 撤销选择
         board[i][j] = temp;
 
         return found;
     }
 
-    // 从每个格子 作为起点 尝试
-    for(let i = 0; i < m; i++) {
-        for(let j = 0; j < n; j++) {
-            if(backtrack(i, j, 0)) return true;
+    // 枚举每一个起点
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (backtrack(i, j, 0)) {
+                return true;
+            }
         }
     }
 
     return false;
-
 };
 
 console.log(exist([['A','B','C','E'],['S','F','C','S'],['A','D','E','E']], "ABCCED"));
