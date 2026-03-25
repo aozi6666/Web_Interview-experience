@@ -33,37 +33,43 @@
  * @return {number[][]}
  */
 var combinationSum = function(candidates, target) {
-  // 结果集
-  const res = [];
-  // 当前路径
-  const path = [];
+  // 本质：回溯中的 组合问题(start) + 元素可重复使用
 
-  // 回溯函数
-  function backtrack(start, sum) {
-    // 如果 sum和 等于 target，收集结果
-    if(sum === target) {
-        res.push([...path]);
-        return;
-    }
+  // 边界判断
+  if(candidates.length === 0) return [];
 
-    // 如果 sum 大于 target，直接剪枝，不加入结果返回
-    if(sum > target) return;
+  // [路径]：存 已选的 数字
+  let track = [];
+  // 结果数组
+  let res = [];
+  // 组合问题用 start(选了一个数，再选下一个)
+  let start = 0;
 
-    // 从 start 开始，因为每个数字可以重复使用
-    for(let i = start; i < candidates.length; i++) {
-        // 当前数字
-        let num = candidates[i];
-        // 将 num 存入 path 中
-        path.push(num);
+  function backtrack(candidates, track, start){
+      let sum = 0;
+      for(let i = 0; i < track.length; i++){
+          sum += track[i];
+      }
 
-        // 递归：i 不变，因为可以重复选择同一个数字
-        backtrack(i, sum + num);
+      if(sum === target){
+          res.push([...track]);
+          // 结束此次递归
+          return;
+      }
+      if(sum > target) return;
 
-        // 回溯：将 num 弹出 path 中，撤销选择
-        path.pop();
-    }
+      // 循环遍历
+      for(let i = start; i < candidates.length; i++){
+          // 递归前选择
+          track.push(candidates[i]);
+          //递归
+          backtrack(candidates, track, i);
+          // 递归后-撤销选择
+          track.pop();
+      }
   }
-  backtrack(0, 0);
+
+  backtrack(candidates, track, start);
   return res;
 };
 
