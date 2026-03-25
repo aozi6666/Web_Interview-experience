@@ -17,6 +17,7 @@
  * @return {string[][]}
  */
 var partition = function(s) {
+    // 本质：切分区间 + 回溯
   
 };
 
