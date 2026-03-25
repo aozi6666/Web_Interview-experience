@@ -37,7 +37,7 @@ var findMin = function(nums) {
             // 因为左半边，最小值已经得到更新，最小值还可能在 右半边
             left = mid + 1;
         }
-        else if(nums[left] > nums) {
+        else if(nums[left] > nums[mid]) {
             right = mid - 1;
         }
     }
