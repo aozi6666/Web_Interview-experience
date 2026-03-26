@@ -17,42 +17,57 @@
  * @return {string[][]}
  */
 var partition = function(s) {
-    const res = [];  // 结果集
-    const path = [];  // 当前路径
-    const n = s.length;  // n:字符串长度
+    // 本质：切分区间 + 回溯
 
-    // 函数： 判断 s[l ... r] 是否是回文串
-    function isPalindrome(l, r) {
-        while(l < r) {
-            if(s[l] !== s[r]) return false;
-            l++;
-            r--;
-        }
-        return true;
+    if(s.length === 0) return [];
+
+    let res = [];
+    // 路径：表示当前 已经切出来的若干段
+    let track = [];
+    // start: 从 start 开始的 所有回文前缀: 
+    // s[0..0] = "a" ; s[0..1] = "aa"; s[0..2] = "aab"
+    let start = 0;
+
+    // 回调：判断是不是回文
+    function isPalindrome(str, start, end){
+       while(start < end){
+            if(str[start] !== str[end]) return false;
+            start++;
+            end--;
+       }
+       return true;
     }
 
-    // 回溯函数： 从下标 start 开始切分
-    function backtrack(start) {
-        // 已经切到末尾，当前 path 是一种方案，加入结果集
-        if(start === n) {
-            res.push([...path]);
+    function backtrak(s, track, start){
+        // 结束条件
+        if(start === s,length){
+            res.push([...track]);
             return;
         }
 
-        // 枚举切分点：[start, i] 这一段
-        for(let i = start; i < n; i++) {
-            // 判断 s[start ... i] 是否是回文串,不是回文串则跳过
-            if(!isPalindrome(start, i)) continue;
+        // 循环-递归
+        // ！ 决定这 一刀切 到哪里为止 ， 切出区间[start, end]
+        for(let end = start; end < s.length; end++){
+            // 不是回文串，直接跳过
+            if(!isPalindrome(s, start, end)) continue;
 
-            // 选取 (start, i + 1)字串段
-            path.push(s.slice(start, i + 1));
-            backtrack(i + 1);
-            path.pop();
+            // 回溯前-选择
+            // slice(a, b): 左闭右开 [a, b),从 a 开始，但是取不到b !!!
+            track.push(s.slice(start, end + 1));
+            end += 1;
+
+            //回溯
+            backtrak(s, track, end);
+
+            // 回溯后-撤销选择
+            track.pop();
+            end -= 1;
         }
     }
 
-    backtrack(0);
+    backtrak(s, track, start);
     return res;
+  
 };
 
 console.log(partition("aab"));
