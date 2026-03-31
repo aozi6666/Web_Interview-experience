@@ -13,7 +13,7 @@
 // 输入：root = [1,null,2]
 // 输出：2
 
-// 解法1：递归
+// 解法1：分治-递归
 // 复杂度 时间复杂度：O(n) ßpace复杂度： O(h)（最坏 O(n)）
 var maxDepth = function(root) {
     // 空树
@@ -29,34 +29,6 @@ var maxDepth = function(root) {
     return 1 + Math.max(left, right) ;
 }
 
-// 解法2：BFS 层序遍历法（非递归） -- 队列
-// 复杂度：时间复杂度 — O(n)； 空间复杂度 — O(w)（最坏 O(n)）
-var max_depth = function(root) {
-    // 空树
-    if(!root) return 0;
-
-    // 创建队列： 先进先出
-    // shift() 出队列，push() 入队列
-    let queue = [root];
-    let depth = 0; // 层数
-
-    // 层序遍历
-    while(queue.length > 0){
-        depth++; // 进入循环，层数加1
-        let size = queue.length;  // 当前层的节点数
-
-        for(let i = 0; i < size; i++) {
-            let node = queue.shift(); // 弹出队列头部元素
-
-            // 左子树
-            if(node.left) queue.push(node.left);
-
-            // 右子树
-            if(node.right) queue.push(node.right);
-        }
-    }
-    return depth;
-}
 
 // 数组构建 树结构 函数
 function TreeNode(val, left, right) {
