@@ -36,6 +36,21 @@ var isSymmetric = function(root) {
 
     return isMirror(root.left, root.right);
 };
+
+let root_1 = new TreeNode(
+    1,
+    new TreeNode(2, new TreeNode(3), new TreeNode(4)),
+    new TreeNode(2, new TreeNode(4), new TreeNode(3)),
+);
+
+let root_2 = new TreeNode(
+    1,
+    new TreeNode(2, null, new TreeNode(3)),
+    new TreeNode(2, null, new TreeNode(3)),
+);
+
+console.log(isSymmetric(root_1));
+console.log(isSymmetric(root_2));
 // @lc code=end
 
 
