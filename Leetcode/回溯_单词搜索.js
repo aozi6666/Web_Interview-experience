@@ -43,11 +43,7 @@ var exist = function(board, word) {
         if (board[i][j] !== word[k]) {
             return false;
         }
-
-        // 3. 已经匹配到最后一个字符
-        if (k === word.length - 1) {
-            return true;
-        }
+ 
 
         // 4. 做选择：标记当前格子已使用
         let temp = board[i][j];
