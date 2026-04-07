@@ -1,0 +1,18 @@
+{
+  "name": "formats",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./we": "./we/index.ts",
+    "./we/*": "./we/*",
+    "./we/shader": "./we/shader/index.ts",
+    "./we/texture": "./we/texture/index.ts",
+    "./mh": "./mh/index.ts",
+    "./spine/*": "./spine/*"
+  },
+  "dependencies": {
+    "moyu-engine": "*",
+    "lz4js": "^0.2.0"
+  }
+}

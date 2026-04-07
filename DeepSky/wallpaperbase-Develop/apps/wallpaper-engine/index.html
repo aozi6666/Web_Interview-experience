@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' ws: wss: http://localhost:*; font-src 'self' data: blob:; worker-src 'self' blob:;">
+  <title>Wallpaper Engine Renderer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #1a1a2e;
+    }
+    #app {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    #toolbar {
+      height: 48px;
+      background: #16213e;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      border-bottom: 1px solid #0f3460;
+    }
+    #toolbar button {
+      background: #0f3460;
+      color: #e94560;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    #toolbar button:hover {
+      background: #e94560;
+      color: white;
+    }
+    #canvas-container {
+      flex: 1;
+      position: relative;
+      display: flex;
+      min-height: 0;
+    }
+    #render-stage {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+    #render-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    #data-inspector-root {
+      display: none;
+      position: fixed;
+      top: 60px;
+      right: 16px;
+      width: 420px;
+      height: calc(100vh - 76px);
+      max-height: calc(100vh - 76px);
+      background: #111a33;
+      border: 1px solid #0f3460;
+      border-radius: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      z-index: 100;
+    }
+    #data-inspector-root.inspector-visible {
+      display: flex;
+      flex-direction: column;
+    }
+    #info {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      color: #94a3b8;
+      font-family: monospace;
+      font-size: 12px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+    #gpu-metrics {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      color: #e2e8f0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.35;
+      background: rgba(0, 0, 0, 0.58);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      padding: 10px 12px;
+      border-radius: 6px;
+      white-space: pre;
+      min-width: 260px;
+      z-index: 15;
+      pointer-events: none;
+    }
+    #gpu-tuning-panel {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 320px;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 12px;
+      line-height: 1.35;
+      background: rgba(30, 30, 30, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      border-radius: 8px;
+      z-index: 25;
+    }
+    #gpu-tuning-panel .panel-head {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    #gpu-tuning-panel .panel-body {
+      padding: 8px 10px 10px;
+      display: grid;
+      gap: 8px;
+    }
+    #gpu-tuning-panel.collapsed .panel-body {
+      display: none;
+    }
+    #gpu-tuning-panel .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    #gpu-tuning-panel input[type="range"] {
+      width: 120px;
+    }
+    #gpu-tuning-panel .hint {
+      color: #94a3b8;
+      font-size: 11px;
+    }
+    #gpu-tuning-panel .btn {
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    #gpu-tuning-panel .btn:hover {
+      border-color: #64748b;
+    }
+    #character-debug-panel {
+      display: none;
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 280px;
+      background: rgba(12, 18, 36, 0.92);
+      border: 1px solid #0f3460;
+      border-radius: 8px;
+      padding: 12px;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      z-index: 20;
+    }
+    #character-debug-panel h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #e94560;
+    }
+    .char-row {
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+    .char-row label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      color: #cbd5e1;
+    }
+    .char-row input[type="range"],
+    .char-row select {
+      width: 100%;
+    }
+    .char-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .char-actions button {
+      flex: 1;
+      background: #0f3460;
+      color: #e2e8f0;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .char-actions button:hover {
+      background: #e94560;
+      color: white;
+    }
+
+    /* ===== 壁纸浏览器弹窗 ===== */
+    #wallpaper-browser {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 30, 0.85);
+    }
+    #wallpaper-browser.open {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #browser-panel {
+      width: 90vw;
+      max-width: 1200px;
+      height: 80vh;
+      background: #16213e;
+      border: 1px solid #0f3460;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    }
+    #browser-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #0f3460;
+      flex-shrink: 0;
+    }
+    #browser-header h2 {
+      color: #e2e8f0;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    #browser-header .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    #browser-search {
+      background: #1a1a2e;
+      border: 1px solid #0f3460;
+      color: #e2e8f0;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 220px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    #browser-search:focus {
+      border-color: #e94560;
+    }
+    #browser-search::placeholder {
+      color: #64748b;
+    }
+    #btn-browser-close {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      line-height: 1;
+      transition: color 0.2s, background 0.2s;
+    }
+    #btn-browser-close:hover {
+      color: #e94560;
+      background: rgba(233, 69, 96, 0.1);
+    }
+    #browser-grid-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+    #browser-grid-container::-webkit-scrollbar {
+      width: 8px;
+    }
+    #browser-grid-container::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    #browser-grid-container::-webkit-scrollbar-thumb {
+      background: #0f3460;
+      border-radius: 4px;
+    }
+    #browser-grid-container::-webkit-scrollbar-thumb:hover {
+      background: #e94560;
+    }
+    #browser-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    #browser-source-tabs {
+      display: flex;
+      gap: 4px;
+    }
+    .source-tab {
+      background: #1a1a2e;
+      color: #94a3b8;
+      border: 1px solid #0f3460;
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      transition: all 0.2s;
+    }
+    .source-tab:hover {
+      color: #e2e8f0;
+      border-color: #e94560;
+    }
+    .source-tab.active {
+      background: #e94560;
+      color: white;
+      border-color: #e94560;
+    }
+    .wallpaper-card {
+      position: relative;
+      background: #1a1a2e;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .wallpaper-card:hover {
+      transform: translateY(-4px);
+      border-color: #e94560;
+      box-shadow: 0 8px 24px rgba(233, 69, 96, 0.2);
+    }
+    .wallpaper-card .card-preview {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      background: #0d1117;
+    }
+    .wallpaper-card .card-info {
+      padding: 10px 12px;
+    }
+    .wallpaper-card .card-title {
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .wallpaper-card .card-meta {
+      color: #64748b;
+      font-size: 11px;
+      margin-top: 4px;
+      font-family: monospace;
+    }
+    .wallpaper-card .card-type {
+      display: inline-block;
+      background: #0f3460;
+      color: #e94560;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .wallpaper-card .card-source {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    .wallpaper-card .card-source.steam {
+      background: rgba(23, 26, 33, 0.85);
+      color: #66c0f4;
+    }
+    .wallpaper-card .card-source.local {
+      background: rgba(23, 26, 33, 0.85);
+      color: #4ade80;
+    }
+    #browser-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      color: #94a3b8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+    }
+    #browser-empty {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div id="toolbar">
+      <button id="btn-open">打开壁纸</button>
+      <button id="btn-sample">加载示例</button>
+      <button id="btn-test">测试场景</button>
+      <button id="btn-reload">重新加载</button>
+      <button id="btn-generator">打开生成器</button>
+      <button id="btn-inspector" type="button">数据查看器</button>
+    </div>
+    <div id="canvas-container">
+      <div id="render-stage">
+        <canvas id="render-canvas"></canvas>
+        <div id="info">等待加载壁纸...</div>
+        <div id="gpu-metrics">GPU 观测: 初始化中...</div>
+        <div id="gpu-tuning-panel" class="collapsed">
+          <div class="panel-head">
+            <strong>GPU 优化开关</strong>
+            <span id="gpu-tuning-toggle">展开</span>
+          </div>
+          <div class="panel-body">
+            <label class="row">
+              <span>质量档位</span>
+              <select id="opt-quality-preset">
+                <option value="ultra">极致画质</option>
+                <option value="high">高画质</option>
+                <option value="medium" selected>均衡</option>
+                <option value="low">省电</option>
+                <option value="custom">自定义</option>
+              </select>
+            </label>
+            <label class="row"><span>隐藏窗口跳帧</span><input id="opt-visibility-throttle" type="checkbox" /></label>
+            <label class="row"><span>Inspector 预览采样</span><input id="opt-inspector-preview" type="checkbox" /></label>
+            <label class="row"><span>浏览器背景模糊</span><input id="opt-browser-blur" type="checkbox" /></label>
+            <label class="row">
+              <span>目标 FPS <span id="opt-target-fps-value">30</span></span>
+              <input id="opt-target-fps" type="range" min="15" max="60" step="5" value="30" />
+            </label>
+            <label class="row">
+              <span>DPR 上限 <span id="opt-dpr-value">1.5</span></span>
+              <input id="opt-max-dpr" type="range" min="0.5" max="2" step="0.1" value="1.5" />
+            </label>
+            <label class="row">
+              <span>场景捕获缩放 <span id="opt-scene-capture-scale-value">1.00</span></span>
+              <input id="opt-scene-capture-scale" type="range" min="0.25" max="1" step="0.05" value="1" />
+            </label>
+            <label class="row"><span>自动 EffectQuality</span><input id="opt-auto-effect-quality" type="checkbox" /></label>
+            <label class="row">
+              <span>EffectQuality <span id="opt-effect-quality-value">1.00</span></span>
+              <input id="opt-effect-quality" type="range" min="0.25" max="1" step="0.05" value="1" />
+            </label>
+            <label class="row"><span>Bloom</span><input id="opt-bloom-enabled" type="checkbox" checked /></label>
+            <label class="row">
+              <span>粒子密度 <span id="opt-particle-density-value">1.0</span></span>
+              <input id="opt-particle-density" type="range" min="0.1" max="1" step="0.1" value="1" />
+            </label>
+            <label class="row">
+              <span>PowerPreference</span>
+              <select id="opt-power-preference">
+                <option value="low-power">low-power</option>
+                <option value="default">default</option>
+                <option value="high-performance">high-performance</option>
+              </select>
+            </label>
+            <div class="hint">PowerPreference 需重载页面后生效。</div>
+            <div class="row">
+              <button id="opt-reload" class="btn" type="button">重载页面应用</button>
+              <button id="opt-reset" class="btn" type="button">恢复默认</button>
+            </div>
+          </div>
+        </div>
+        <div id="character-debug-panel">
+          <h3>角色调试面板</h3>
+          <div class="char-row">
+            <label><span>自动眨眼</span><input id="char-auto-blink" type="checkbox" checked /></label>
+          </div>
+          <div class="char-row">
+            <label for="char-mouth-part">嘴型部件</label>
+            <select id="char-mouth-part">
+              <option value="auto">自动切换</option>
+              <option value="mouth_smile">微笑嘴</option>
+              <option value="mouth_open">张嘴</option>
+            </select>
+          </div>
+          <div class="char-row">
+            <label for="char-mouth-open">MouthOpen</label>
+            <input id="char-mouth-open" type="range" min="0" max="1" step="0.01" value="0" />
+          </div>
+          <div class="char-row">
+            <label for="char-eye-l">EyeL</label>
+            <input id="char-eye-l" type="range" min="0" max="1" step="0.01" value="1" />
+          </div>
+          <div class="char-row">
+            <label for="char-eye-r">EyeR</label>
+            <input id="char-eye-r" type="range" min="0" max="1" step="0.01" value="1" />
+          </div>
+          <div class="char-row">
+            <label for="char-angle-x">AngleX</label>
+            <input id="char-angle-x" type="range" min="-30" max="30" step="1" value="0" />
+          </div>
+          <div class="char-row">
+            <label for="char-angle-y">AngleY</label>
+            <input id="char-angle-y" type="range" min="-30" max="30" step="1" value="0" />
+          </div>
+          <div class="char-row">
+            <label for="char-angle-z">AngleZ</label>
+            <input id="char-angle-z" type="range" min="-30" max="30" step="1" value="0" />
+          </div>
+          <div class="char-actions">
+            <button id="char-play-talk">播放说话</button>
+            <button id="char-stop-talk">停止动画</button>
+            <button id="char-reset">重置</button>
+          </div>
+        </div>
+      </div>
+      <div id="data-inspector-root"></div>
+    </div>
+  </div>
+  <!-- 壁纸浏览器弹窗 -->
+  <div id="wallpaper-browser">
+    <div id="browser-panel">
+      <div id="browser-header">
+        <h2>选择壁纸</h2>
+        <div class="header-actions">
+          <div id="browser-source-tabs">
+            <button class="source-tab active" data-source="all">全部</button>
+            <button class="source-tab" data-source="local">本地</button>
+            <button class="source-tab" data-source="steam">Steam</button>
+          </div>
+          <input id="browser-search" type="text" placeholder="搜索壁纸..." />
+          <button id="btn-browser-close">&times;</button>
+        </div>
+      </div>
+      <div id="browser-grid-container">
+        <div id="browser-loading">正在加载壁纸列表...</div>
+        <div id="browser-empty">没有找到匹配的壁纸</div>
+        <div id="browser-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/app/renderer.ts"></script>
+</body>
+</html>

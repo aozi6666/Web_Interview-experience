@@ -1,0 +1,355 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sample wallpaper layout baseline > keeps baseline layout fields for 3347978935 1`] = `
+{
+  "rows": [
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.274286,
+        "x": 956.992,
+        "y": 503.183,
+      },
+      "id": 31818,
+      "name": "Clock",
+      "origin": [
+        3489.03418,
+        1834.77087,
+      ],
+      "parallaxDepth": null,
+      "parent": null,
+      "scale": "0.63346 0.63346 0.63346",
+      "weParentId": null,
+      "weRelativeOrigin": null,
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.274286,
+        "x": 963.642,
+        "y": 561.838,
+      },
+      "id": 31825,
+      "name": "D a y",
+      "origin": [
+        3513.27661,
+        2048.61597,
+      ],
+      "parallaxDepth": null,
+      "parent": null,
+      "scale": "1.14488 1.13179 0.95818",
+      "weParentId": null,
+      "weRelativeOrigin": null,
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.274286,
+        "x": 956.358,
+        "y": 530.108,
+      },
+      "id": 31831,
+      "name": "Date",
+      "origin": [
+        3486.72339,
+        1932.93469,
+      ],
+      "parallaxDepth": null,
+      "parent": null,
+      "scale": "0.51244 0.49385 0.72415",
+      "weParentId": null,
+      "weRelativeOrigin": null,
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.274286,
+        "x": 953.572,
+        "y": 399.923,
+      },
+      "id": 18526,
+      "name": "Audio bar",
+      "origin": [
+        3476.56299,
+        1458.30103,
+      ],
+      "parallaxDepth": "0.70000 0.70000",
+      "parent": null,
+      "scale": "2.84413 1.78582 2.44313",
+      "weParentId": null,
+      "weRelativeOrigin": null,
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.274286,
+        "x": 960,
+        "y": 540,
+      },
+      "id": 16,
+      "name": "背景天空",
+      "origin": [
+        3500,
+        1969,
+      ],
+      "parallaxDepth": "0.50000 0.50000",
+      "parent": null,
+      "scale": "1.02732 1.02732 1.02732",
+      "weParentId": null,
+      "weRelativeOrigin": null,
+    },
+  ],
+  "sceneSize": [
+    7000,
+    3938,
+  ],
+  "wallpaperId": "3347978935",
+}
+`;
+
+exports[`sample wallpaper layout baseline > keeps baseline layout fields for 3446971952 1`] = `
+{
+  "rows": [
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.5,
+        "x": 960,
+        "y": 222.937,
+      },
+      "id": 2559,
+      "name": "D a y",
+      "origin": [
+        1920,
+        445.87427,
+      ],
+      "parallaxDepth": "0.00000 0.00000",
+      "parent": null,
+      "scale": {
+        "user": "newproperty3",
+        "value": "1.00000 1.00000 1.00000",
+      },
+      "weParentId": null,
+      "weRelativeOrigin": null,
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.5,
+        "x": 950.134,
+        "y": 152.485,
+      },
+      "id": 2554,
+      "name": "Clock",
+      "origin": [
+        1900.26733,
+        304.96948000000003,
+      ],
+      "parallaxDepth": [
+        0,
+        0,
+      ],
+      "parent": 2559,
+      "scale": "0.24490 0.24773 0.29262",
+      "weParentId": 2559,
+      "weRelativeOrigin": [
+        -19.73267,
+        -140.90479,
+      ],
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.5,
+        "x": 948.912,
+        "y": 173.269,
+      },
+      "id": 2565,
+      "name": "Date",
+      "origin": [
+        1897.82312,
+        346.53876,
+      ],
+      "parallaxDepth": [
+        0,
+        0,
+      ],
+      "parent": 2559,
+      "scale": "0.27716 0.27019 0.46798",
+      "weParentId": 2559,
+      "weRelativeOrigin": [
+        -22.17688,
+        -99.33551,
+      ],
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.5,
+        "x": 960,
+        "y": 540,
+      },
+      "id": 155,
+      "name": "Getsuga Tenshou Mouse Trail",
+      "origin": [
+        1920,
+        1080,
+      ],
+      "parallaxDepth": null,
+      "parent": null,
+      "scale": null,
+      "weParentId": null,
+      "weRelativeOrigin": null,
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.5,
+        "x": 960,
+        "y": 540,
+      },
+      "id": 200,
+      "name": "Getsuga Tenshou Mouse Trail",
+      "origin": [
+        1920,
+        1080,
+      ],
+      "parallaxDepth": null,
+      "parent": 155,
+      "scale": null,
+      "weParentId": 155,
+      "weRelativeOrigin": [
+        0,
+        0,
+      ],
+    },
+  ],
+  "sceneSize": [
+    3840,
+    2160,
+  ],
+  "wallpaperId": "3446971952",
+}
+`;
+
+exports[`sample wallpaper layout baseline > keeps baseline layout fields for 3581882134 1`] = `
+{
+  "rows": [
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.5,
+        "x": 854.59,
+        "y": 942.881,
+      },
+      "id": 352,
+      "name": "D a y",
+      "origin": [
+        1709.1809812000001,
+        1885.7620102,
+      ],
+      "parallaxDepth": null,
+      "parent": 323,
+      "scale": "0.8758332 0.8658269999999999 0.23955",
+      "weParentId": 323,
+      "weRelativeOrigin": [
+        10.24252,
+        7.85867,
+      ],
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.5,
+        "x": 905.824,
+        "y": 898.859,
+      },
+      "id": 343,
+      "name": "Clock",
+      "origin": [
+        1811.6484866847895,
+        1797.7181573541727,
+      ],
+      "parallaxDepth": null,
+      "parent": 352,
+      "scale": "0.35033328 0.3463308 0.3",
+      "weParentId": 352,
+      "weRelativeOrigin": [
+        117.01249,
+        -101.66618,
+      ],
+    },
+    {
+      "alignment": null,
+      "display": {
+        "coverScale": 0.5,
+        "x": 772.803,
+        "y": 897.881,
+      },
+      "id": 359,
+      "name": "Date",
+      "origin": [
+        1545.6059993192598,
+        1795.762573904607,
+      ],
+      "parallaxDepth": null,
+      "parent": 352,
+      "scale": "0.35033328 0.3463308 0.4",
+      "weParentId": 352,
+      "weRelativeOrigin": [
+        -186.74641,
+        -103.98037,
+      ],
+    },
+    {
+      "alignment": "bottom",
+      "display": {
+        "coverScale": 0.5,
+        "x": 976.128,
+        "y": 111.322,
+      },
+      "id": 223,
+      "name": "Audio bar",
+      "origin": [
+        1952.2556049999998,
+        222.64331,
+      ],
+      "parallaxDepth": "0.00000 0.00000",
+      "parent": 220,
+      "scale": "0.2833875 0.375 1",
+      "weParentId": 220,
+      "weRelativeOrigin": [
+        0,
+        -78,
+      ],
+    },
+    {
+      "alignment": "top",
+      "display": {
+        "coverScale": 0.5,
+        "x": 976.128,
+        "y": 109.634,
+      },
+      "id": 237,
+      "name": "Audio bar",
+      "origin": [
+        1952.2556049999998,
+        219.26831,
+      ],
+      "parallaxDepth": "0.00000 0.00000",
+      "parent": 220,
+      "scale": "0.2833875 0.375 1",
+      "weParentId": 220,
+      "weRelativeOrigin": [
+        0,
+        -87,
+      ],
+    },
+  ],
+  "sceneSize": [
+    3840,
+    2160,
+  ],
+  "wallpaperId": "3581882134",
+}
+`;

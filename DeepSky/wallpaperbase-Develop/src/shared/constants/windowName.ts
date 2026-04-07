@@ -1,0 +1,16 @@
+export enum WindowName {
+  MAIN = 'Main_Window',
+  LOGIN = 'Login_Window',
+  VIDEO = 'Video_Window',
+  WE_RENDERER = 'WERenderer_Window',
+  LIVE = 'Live_Window',
+  GENERATE_FACE = 'GenerateFace_Window',
+  WALLPAPER_INPUT = 'WallpaperInput_Window',
+  FLOATING_BALL = 'FloatingBall_Window',
+  OFFICIAL_WALLPAPER = 'OfficialWallpaper_Window',
+  CREATE_SCENE = 'CreateScene_Window',
+  PREVIEW = 'Preview_Window',
+  CREATION_CENTER = 'CreationCenter_Window',
+  UPDATE_UE = 'UpdateUE_Window',
+  SETTINGS = 'Settings_Window',
+}

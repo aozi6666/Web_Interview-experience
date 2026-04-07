@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "moyu-engine": ["../../src/we-engine/moyu-engine/index.ts"],
+      "moyu-engine/*": ["../../src/we-engine/moyu-engine/*"],
+      "formats": ["../../src/we-engine/formats/index.ts"],
+      "formats/*": ["../../src/we-engine/formats/*"]
+    },
+    "types": ["node", "vite/client"]
+  },
+  "include": ["app/**/*.ts", "server/**/*.ts", "vite.config.ts", "vitest.config.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

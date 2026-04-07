@@ -1,0 +1,110 @@
+.wallpaper-baby-test {
+  padding: 24px;
+  margin: 0 auto;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+}
+
+.page-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.page-header .ant-typography-title {
+  margin-bottom: 8px;
+  color: #1890ff;
+}
+
+.page-header .ant-typography-paragraph {
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+/* 状态卡片样式 */
+.wallpaper-baby-test .ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wallpaper-baby-test .ant-card-head-title {
+  font-weight: 600;
+}
+
+/* 按钮组样式 */
+.wallpaper-baby-test .ant-btn-lg {
+  height: 48px;
+  padding: 0 24px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 描述列表样式 */
+.wallpaper-baby-test .ant-descriptions-item-label {
+  font-weight: 500;
+  color: #666;
+}
+
+.wallpaper-baby-test .ant-descriptions-item-content {
+  color: #333;
+}
+
+/* 代码样式 */
+.wallpaper-baby-test .ant-typography code {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+/* 警告提示样式 */
+.wallpaper-baby-test .ant-alert {
+  border-radius: 6px;
+}
+
+/* 标签样式 */
+.wallpaper-baby-test .ant-tag {
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .wallpaper-baby-test {
+    padding: 16px;
+  }
+
+  .wallpaper-baby-test .ant-btn-lg {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .page-header .ant-typography-title {
+    font-size: 24px;
+  }
+}
+
+/* 加载动画 */
+.wallpaper-baby-test .ant-btn-loading-icon {
+  margin-right: 8px;
+}
+
+/* 成功状态样式 */
+.wallpaper-baby-test .status-success {
+  color: #52c41a;
+  font-weight: 500;
+}
+
+/* 错误状态样式 */
+.wallpaper-baby-test .status-error {
+  color: #ff4d4f;
+  font-weight: 500;
+}
+
+/* 空闲状态样式 */
+.wallpaper-baby-test .status-idle {
+  color: #8c8c8c;
+  font-weight: 500;
+}

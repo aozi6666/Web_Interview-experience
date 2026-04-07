@@ -1,0 +1,32 @@
+{
+  "name": "wallpaper-engine",
+  "version": "1.0.0",
+  "description": "Wallpaper Engine 应用层",
+  "main": "electron-main.cjs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:resources": "vitest run tests/resource-loader.test.ts --silent",
+    "test:resources:verbose": "RESOURCE_TEST_VERBOSE=1 vitest run tests/resource-loader.test.ts",
+    "test:watch": "vitest",
+    "electron:dev": "concurrently \"vite\" \"wait-on http://localhost:5173 && electron .\"",
+    "electron:build": "npm run build && electron-builder"
+  },
+  "devDependencies": {
+    "@types/three": "^0.160.0",
+    "concurrently": "^8.2.2",
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1",
+    "pngjs": "^7.0.0",
+    "puppeteer": "^24.37.4",
+    "three": "^0.160.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vitest": "^3.2.4",
+    "wait-on": "^7.2.0"
+  }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' data: blob: we-asset: http://localhost:* ws:; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src 'self' blob: file: we-asset: data:; img-src 'self' data: blob: file: we-asset:; connect-src 'self' we-asset: ws: wss: http://localhost:*;"
+    />
+    <title>WE Runtime Renderer</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #we-video,
+      #we-canvas,
+      #we-idle {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #we-video {
+        object-fit: cover;
+        display: none;
+      }
+      #we-canvas {
+        display: none;
+      }
+      #we-idle {
+        display: none;
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <video id="we-video" autoplay muted loop playsinline></video>
+      <canvas id="we-canvas"></canvas>
+      <div id="we-idle"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "moyu-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./rendering": "./rendering/interfaces/index.ts",
+    "./rendering/*": "./rendering/*",
+    "./rendering/threejs": "./rendering/threejs/index.ts",
+    "./scenario": "./scenario/index.ts",
+    "./scenario/layers": "./scenario/layers/index.ts",
+    "./scenario/scene-model": "./scenario/scene-model/index.ts",
+    "./scenario/*": "./scenario/*",
+    "./avatar": "./avatar/index.ts",
+    "./avatar/*": "./avatar/*",
+    "./avatar/puppet": "./avatar/puppet/index.ts",
+    "./avatar/puppet/rig": "./avatar/puppet/rig/index.ts",
+    "./avatar/puppet/rig/*": "./avatar/puppet/rig/*",
+    "./avatar/puppet/deform": "./avatar/puppet/deform/index.ts",
+    "./avatar/puppet/deform/*": "./avatar/puppet/deform/*",
+    "./avatar/puppet/character": "./avatar/puppet/character/index.ts",
+    "./avatar/puppet/character/*": "./avatar/puppet/character/*",
+    "./interfaces": "./interfaces/index.ts",
+    "./interfaces/*": "./interfaces/*",
+    "./components": "./components/index.ts",
+    "./components/*": "./components/*",
+    "./math": "./math/index.ts",
+    "./utils": "./utils/index.ts",
+    "./defaults": "./defaults/index.ts"
+  },
+  "dependencies": {
+    "three": "^0.160.0"
+  }
+}

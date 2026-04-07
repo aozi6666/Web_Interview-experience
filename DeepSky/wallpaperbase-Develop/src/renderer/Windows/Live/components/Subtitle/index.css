@@ -1,0 +1,138 @@
+/* 字幕组件样式 */
+
+/* 主容器样式 */
+.subtitle-container {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  max-width: 90%;
+  min-width: 300px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-app-region: no-drag;
+}
+
+/* 字幕背景容器 */
+.subtitle-background {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3));
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 20px 32px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 显示状态 */
+.subtitle-background.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.subtitle-background.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* 发光边框效果 */
+.subtitle-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(100, 200, 255, 0.1),
+    transparent
+  );
+  border-radius: 24px;
+  opacity: 0.6;
+}
+
+.subtitle-glow.animate {
+  animation: subtitleGlow 3s ease-in-out infinite;
+}
+
+/* 字幕文本容器 */
+.subtitle-text {
+  position: relative;
+  z-index: 1;
+  color: white;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  font-family: 'Microsoft YaHei', Arial, sans-serif;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.5px;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  pointer-events: auto;
+}
+
+/* WebKit 滚动条样式 */
+.subtitle-text::-webkit-scrollbar {
+  width: 6px;
+}
+
+.subtitle-text::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.subtitle-text::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.subtitle-text::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.subtitle-text::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* 队列指示器 */
+.subtitle-queue-indicator {
+  position: absolute;
+  top: -12px;
+  left: 16px;
+  background: rgba(255, 193, 7, 0.9);
+  color: black;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(255, 193, 7, 0.3);
+}
+
+/* 发光动画 */
+@keyframes subtitleGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(10px);
+  }
+}

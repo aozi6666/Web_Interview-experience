@@ -1,0 +1,132 @@
+.floating-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+/* 悬浮球样式 */
+.floating-ball {
+  position: fixed;
+  right: 20px;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 9999;
+  transition: all 0.3s ease;
+}
+
+.floating-ball-image {
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../../assets/icons/WallPaperInput/radius-nor.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  transition: background-image 0.3s ease;
+}
+
+.floating-ball.hovered .floating-ball-image {
+  background-image: url('../../../../assets/icons/WallPaperInput/radius-hov.png');
+}
+
+/* 提示文字 */
+.floating-ball-tooltip {
+  position: absolute;
+  right: 58px;
+  top: 40%;
+  transform: translateY(-40%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeInTooltip 0.3s ease forwards;
+}
+
+@keyframes fadeInTooltip {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* 快捷方式菜单 */
+.floating-shortcuts {
+  position: fixed;
+  top: 55px;
+  right: 20px;
+  background: rgba(0, 15, 11, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 8px;
+  min-width: 180px;
+  z-index: 9998;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: slideUpShortcuts 0.3s ease forwards;
+}
+
+@keyframes slideUpShortcuts {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-shortcut-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 14px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.floating-shortcut-item:hover {
+  background: rgba(46, 49, 48, 1);
+}
+
+.shortcut-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.shortcut-label {
+  flex: 1;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .floating-ball {
+    width: 60px;
+    height: 60px;
+  }
+
+  .floating-shortcuts {
+    min-width: 160px;
+  }
+
+  .floating-shortcut-item {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}

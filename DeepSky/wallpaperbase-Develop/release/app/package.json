@@ -1,0 +1,20 @@
+{
+  "name": "Moyu",
+  "version": "0.2.69",
+  "description": "Moyu",
+  "license": "MIT",
+  "author": {
+    "name": "Moyu Maintainers"
+  },
+  "main": "./dist/main/main.cjs",
+  "scripts": {
+    "rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
+    "postinstall": "npm run rebuild && npm run link-modules",
+    "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts"
+  },
+  "dependencies": {
+    "@volcengine/vertc-electron-sdk": "^3.58.4",
+    "koffi": "^2.14.1",
+    "speaker": "^0.5.5"
+  }
+}

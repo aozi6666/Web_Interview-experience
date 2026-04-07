@@ -1,0 +1,23 @@
+# 依赖
+node_modules
+**/node_modules/**
+
+# 构建产物
+dist
+build
+release
+.erb/dll
+
+# 日志
+*.log
+
+# 配置文件
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 其他
+coverage
+.DS_Store
+*.min.js
+*.bundle.js

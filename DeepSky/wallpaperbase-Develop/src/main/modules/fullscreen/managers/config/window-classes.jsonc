@@ -1,0 +1,100 @@
+{
+  "excludeClasses": [
+    // ========== 浏览器和 Electron 应用 ==========
+    "Chrome_WidgetWin_1", // Chrome/Electron 浏览器窗口类，Chromium 内核应用的窗口（通过进程ID排除）
+    
+    // ========== 系统UI组件（不在 native-win32.js 中的） ==========
+    "Button", // Windows 按钮控件窗口类，系统按钮控件
+    "CEF-OSC-WIDGET", // CEF (Chromium Embedded Framework) 覆盖层窗口，如 NVIDIA GeForce 覆盖层
+    "EdgeUiInputWndClass", // Microsoft Edge 浏览器 UI 输入窗口，Edge 浏览器的输入组件
+    "ApplicationFrameWindow", // UWP 应用框架窗口，Windows 10+ 的 UWP 应用容器窗口
+    "Tooltip", // 工具提示窗口（注意：native-win32.js 中是 TooltipClass32，这里是 Tooltip）
+    
+    // ========== Microsoft Office 系列 ==========
+    "OpusApp", // Microsoft Word 窗口类，Word 文档编辑器
+    "XLMAIN", // Microsoft Excel 窗口类，Excel 电子表格应用
+    "PP11FrameClass", // Microsoft PowerPoint 2010 窗口类，PPT 演示文稿应用
+    "PP12FrameClass", // Microsoft PowerPoint 2013 窗口类
+    "PP14FrameClass", // Microsoft PowerPoint 2016 窗口类
+    "PP15FrameClass", // Microsoft PowerPoint 2019 窗口类
+    "PP16FrameClass", // Microsoft PowerPoint 2021 窗口类
+    "PP17FrameClass", // Microsoft PowerPoint 2024 窗口类
+    "rctrl_renwnd32", // Microsoft Outlook 窗口类，Outlook 邮件客户端
+    "wndclass_desked_gsk", // Microsoft Access 窗口类，Access 数据库应用
+    "WPSOffice", // WPS Office 窗口类，WPS 办公套件
+    "Kingsoft WPS", // WPS Office 窗口类
+    "LibreOffice", // LibreOffice 窗口类，LibreOffice 办公套件
+    "OpenOffice", // OpenOffice 窗口类，Apache OpenOffice
+    
+    // ========== 编程工具 ==========
+    "HwndWrapper", // Visual Studio 窗口类，微软 Visual Studio IDE
+    "SunAwtFrame", // JetBrains IDE 窗口类，IntelliJ IDEA、PyCharm、WebStorm 等 IDE
+    "SWT_Window", // Eclipse IDE 窗口类，Eclipse 开发环境
+    "Chrome_RenderWidgetHostHWND", // VS Code 窗口类，Visual Studio Code（基于 Chromium）
+    "Notepad++", // Notepad++ 窗口类，Notepad++ 文本编辑器
+    "Notepad", // Windows 记事本窗口类，Windows 系统自带的记事本
+    "WindowsTerminal", // Windows Terminal 窗口类，Windows 终端
+    "ConsoleWindowClass", // Windows 控制台窗口类，CMD、PowerShell
+    
+    // ========== Adobe 系列 ==========
+    "Photoshop", // Adobe Photoshop 窗口类，Photoshop 图像编辑软件
+    "Illustrator", // Adobe Illustrator 窗口类，Illustrator 矢量图形编辑
+    "Premiere Pro", // Adobe Premiere Pro 窗口类，Premiere 视频编辑软件
+    "After Effects", // Adobe After Effects 窗口类，After Effects 视频特效软件
+    
+    // ========== 浏览器 ==========
+    "MozillaWindowClass", // Firefox
+    "OperaWindowClass", // Opera
+    
+    // ========== 即时通讯 ==========
+    "WeChatMainWndForPC", // 微信
+    "TXGuiFoundation", // QQ
+    "Discord", // Discord
+    "Slack", // Slack
+    "Teams", // Microsoft Teams
+    
+    // ========== 文件管理 ==========
+    "CabinetWClass", // Windows 资源管理器（文件管理器）窗口类
+    
+    // ========== 视频会议 ==========
+    "Zoom", // Zoom
+    "Zoom Meeting", // Zoom 会议
+    
+    // ========== 音乐播放器 ==========
+    "Spotify", // Spotify 窗口类，Spotify 音乐播放器
+    "QQMusic", // QQ音乐 窗口类
+    "NetEaseCloudMusic", // 网易云音乐 窗口类
+    
+    // ========== 系统工具 ==========
+    "TaskManagerWindow", // 任务管理器窗口类
+    "Settings", // Windows 设置窗口类
+    "Calculator" // Windows 计算器窗口类
+  ],
+  "gameClasses": [
+    // ========== 游戏引擎窗口类 ==========
+    "UnityWndClass", // Unity 游戏引擎窗口，Unity 开发的游戏和应用
+    "UnrealWindow", // Unreal Engine 游戏引擎窗口，虚幻引擎开发的游戏
+    "CryENGINE", // CryEngine 游戏引擎窗口，CryEngine 开发的游戏
+    
+    // ========== 游戏框架窗口类 ==========
+    "SDL_app", // SDL (Simple DirectMedia Layer) 应用窗口，很多游戏使用 SDL 框架
+    "GLFW30", // GLFW 3.0 窗口，OpenGL 游戏和应用框架
+    "SFML_Window", // SFML (Simple and Fast Multimedia Library) 窗口，游戏开发框架
+    
+    // ========== 游戏平台窗口类 ==========
+    "Valve001", // Steam/Valve 游戏窗口，Steam 平台游戏和 Valve 开发的游戏
+    "RiotWindowClass", // Riot Games 游戏窗口，英雄联盟等 Riot 开发的游戏
+    "LOLReplayClass", // 英雄联盟录像窗口，LOL 回放系统窗口
+    
+    // ========== 媒体播放器窗口类（可能全屏播放） ==========
+    "VLC_MainWindow", // VLC 媒体播放器主窗口，支持全屏播放视频
+    "WMPlayerApp", // Windows Media Player 应用窗口，Windows 系统媒体播放器
+    "PotPlayer64", // PotPlayer 播放器窗口，支持全屏播放的媒体播放器
+    "MpcWindowClass", // Media Player Classic 窗口类，经典媒体播放器
+    
+    // ========== GUI 框架窗口类（可能用于游戏） ==========
+    "Qt5QWindowIcon", // Qt5 窗口图标类，Qt5 框架应用（可能用于游戏）
+    "Qt5151QWindowIcon", // Qt5 15.1 窗口图标类
+    "Qt5155QWindowIcon" // Qt5 15.5 窗口图标类
+  ]
+}

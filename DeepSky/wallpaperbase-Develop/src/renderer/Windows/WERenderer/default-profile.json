@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "moyu-defaults-schema-v1",
+  "profileVersion": "moyu-fit-v1",
+  "overlay": {
+    "layerDefaults": {
+      "_common": {
+        "visible": true,
+        "opacity": 1,
+        "parallaxDepth": [
+          0,
+          0
+        ],
+        "fullscreen": false,
+        "isPostProcess": false,
+        "runtimeTransform": {
+          "scaleX": 1,
+          "scaleY": 1,
+          "rotation": 0
+        }
+      },
+      "image": {
+        "blendMode": "normal",
+        "brightness": 1,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1
+        },
+        "userAlpha": 1,
+        "colorBlendMode": 0,
+        "alignment": "center",
+        "effectQuality": 0.75,
+        "spritesheetCols": 0,
+        "spritesheetRows": 0,
+        "spritesheetFrames": 0,
+        "spritesheetDuration": 0
+      },
+      "particle": {
+        "blendMode": "additive",
+        "maxParticles": 500,
+        "oscillate": false,
+        "oscillateFrequency": 1,
+        "oscillateScaleMin": 0.2,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1
+        },
+        "followMouse": false,
+        "rendererType": "sprite",
+        "subdivision": 0,
+        "sequenceMultiplier": 1,
+        "trailLength": 1,
+        "overbright": 1,
+        "speedMultiplier": 1,
+        "sizeMultiplier": 1,
+        "alphaMultiplier": 1,
+        "refract": false,
+        "refractAmount": 0.04,
+        "emitAngle": 0
+      }
+    },
+    "emitterDefaults": {
+      "rate": 10,
+      "instantaneous": 0,
+      "lifetime": 5,
+      "lifetimeRandom": 0,
+      "sizeExponent": 1,
+      "speed": 0,
+      "speedRandom": 0,
+      "drag": 0,
+      "gravity": 0,
+      "fadeIn": 0,
+      "fadeOut": 1,
+      "turbulence": 0,
+      "turbulenceSpeedMin": 0,
+      "turbulenceSpeedMax": 0,
+      "turbulenceTimeScale": 1,
+      "turbulenceScale": 0.01,
+      "attractStrength": 0,
+      "attractThreshold": 0,
+      "colorMin": {
+        "r": 1,
+        "g": 1,
+        "b": 1
+      },
+      "colorMax": {
+        "r": 1,
+        "g": 1,
+        "b": 1
+      }
+    },
+    "uniformDefaults": {
+      "g_Time": 0,
+      "g_Point0": {
+        "x": 0,
+        "y": 0
+      },
+      "g_Point1": {
+        "x": 1,
+        "y": 0
+      },
+      "g_Point2": {
+        "x": 1,
+        "y": 1
+      },
+      "g_Point3": {
+        "x": 0,
+        "y": 1
+      },
+      "g_EyeColor": {
+        "r": 1,
+        "g": 1,
+        "b": 1
+      },
+      "u_color": {
+        "r": 1,
+        "g": 1,
+        "b": 1
+      },
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "appId": "com.wallpaper.renderer",
+  "productName": "Wallpaper Engine Renderer",
+  "directories": {
+    "output": "release"
+  },
+  "files": [
+    "dist/**/*",
+    "public/**/*"
+  ],
+  "mac": {
+    "category": "public.app-category.graphics-design",
+    "target": ["dmg", "zip"]
+  },
+  "win": {
+    "target": ["nsis", "portable"]
+  },
+  "linux": {
+    "target": ["AppImage", "deb"]
+  }
+}

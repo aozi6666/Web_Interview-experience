@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' data: blob: we-asset: http://localhost:* ws:; img-src 'self' data: blob: file: we-asset: http://localhost:*; media-src 'self' data: blob: file: we-asset: http://localhost:*; script-src 'self' 'unsafe-eval' 'unsafe-inline' http://localhost:*; style-src 'self' 'unsafe-inline'; connect-src 'self' file: we-asset: http://localhost:* ws:;"
+    />
+    <title>WE Renderer</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #000;
+      }
+
+      #render-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      #embed-wallpaper-btn {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 10;
+        padding: 8px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-size: 14px;
+        line-height: 20px;
+        cursor: pointer;
+        backdrop-filter: blur(6px);
+      }
+
+      #embed-wallpaper-btn:hover {
+        background: rgba(24, 144, 255, 0.8);
+        border-color: rgba(24, 144, 255, 0.9);
+      }
+
+      #embed-wallpaper-btn[disabled] {
+        opacity: 0.65;
+        cursor: wait;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="render-canvas"></canvas>
+    <button id="embed-wallpaper-btn" type="button">设置为壁纸</button>
+  </body>
+</html>

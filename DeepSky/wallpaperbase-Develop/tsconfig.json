@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es2022",
+    "module": "node16",
+    "lib": ["dom", "es2022"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "sourceMap": true,
+    "moduleResolution": "node16",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": ".erb/dll",
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@shared": ["./src/shared/index.ts"],
+      "@shared/*": ["./src/shared/*"],
+      "@api": ["./src/renderer/api/index.ts"],
+      "@api/*": ["./src/renderer/api/*"],
+      "@components/*": ["./src/renderer/components/*"],
+      "@contexts/*": ["./src/renderer/contexts/*"],
+      "@hooks/*": ["./src/renderer/hooks/*"],
+      "@router/*": ["./src/renderer/router/*"],
+      "@renderer/*": ["./src/renderer/*"],
+      "@stores/*": ["./src/renderer/stores/*"],
+      "@types/*": ["./src/renderer/types/*"],
+      "@utils/*": ["./src/renderer/utils/*"],
+      "$assets/*": ["./assets/*"],
+      "moyu-engine": ["./src/we-engine/moyu-engine/index.ts"],
+      "moyu-engine/*": ["./src/we-engine/moyu-engine/*"],
+      "formats": ["./src/we-engine/formats/index.ts"],
+      "formats/*": ["./src/we-engine/formats/*"]
+    }
+  },
+  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+}
