@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Debug Demo</title>
+</head>
+<body>
+  <h1>JS 调用栈断点演示</h1>
+
+  <script>
+    var a = 2;
+
+    function add(b, c) {
+      debugger; // 程序执行到这里会自动暂停
+      return b + c;
+    }
+
+    function addAll(b, c) {
+      var d = 10;
+      var result = add(b, c);
+      return a + result + d;
+    }
+
+    var finalResult = addAll(3, 6);
+    console.log("最终结果:", finalResult);
+  </script>
+</body>
+</html>
